@@ -68,19 +68,24 @@ class PlantModel
         return $plantObj;
     }
 
+    function addNewPlant(string $name, string $scientific_name, int $family_id, string $image, string $description): bool
+    {   
+        $query = $this->db->prepare(
+            'INSERT INTO `plant` 
+                (`name`, `scientific_name`,`family_id`, `image`, `description`)
+                VALUES (:name, :scientific_name, :family_id, :image, :description);'
+            );
+        
+        $query->bindParam(':name', $name);
+        $query->bindParam(':scientific_name', $scientific_name);
+        $query->bindParam(':family_id', $family_id);
+        $query->bindParam(':image', $image);
+        $query->bindParam(':description', $description);
+    
+    
+        $success = $query->execute();
 
-
-
-
-
-
-
-    // public function getPlantsByFamily(int $family_id)
-    // {
-    //     $query = $this->db->prepare(
-
-    //     )
-    // }
-
-    //addPlant
+        return $success;
+        
+    }
 }
